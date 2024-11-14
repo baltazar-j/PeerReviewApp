@@ -1,10 +1,10 @@
 import React from 'react';
+import BlogList from '../components/BlogList.jsx';
 
 function Home() {
   return (
     <div>
-      <h1>Home Page</h1>
-      {/* Your component code here */}
+      <BlogList />
     </div>
   );
 }

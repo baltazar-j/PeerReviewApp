@@ -1,0 +1,117 @@
+/* Mobile first */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Unica+One&display=swap');
+
+:root {
+    --text-color: #e6e6e6;  /* Default text color */
+    --background-color: #141414;  /* Dark background */
+    --dark-grey-accent: #393939;
+}
+
+body {
+    /* Safe area for phones */
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+
+    padding: 1rem;
+    margin: 0;
+    font-family: 'Roboto Condensed', sans-serif; /* Base font */
+    font-size: 16px;  /* Default font size */
+    line-height: 1.5;
+    color: var(--text-color);  /* Text color */
+    background-color: var(--background-color);  /* Light background */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: var(--text-color);
+}
+
+header, section, main {
+    padding: 10px;
+    border-bottom-style: solid;
+    border-color: var(--dark-grey-accent);
+}
+
+p, span, .content {
+    font-family: 'Open Sans', sans-serif; 
+}
+
+/* Base styles for mobile */
+nav {
+    border-top-style: solid;
+    border-color: var(--dark-grey-accent);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #141414; 
+    z-index: 1000;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem; /* Adjust size as needed */
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+.icon {
+    width: 5rem;
+    height: 5rem;
+  }
+
+/* Tablets*/
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+
+    header {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.5rem; 
+    }
+
+    nav {
+        padding: 20px;
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    body {
+        font-size: 20px;  
+    }
+
+    header {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    nav {
+        padding: 30px;
+    }
+}

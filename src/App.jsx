@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-//other imports from components
 import Home from './pages/Home';
 import Discover from './pages/Discover';
 import CreatePost from './pages/CreatePost';
@@ -16,7 +15,6 @@ function App() {
         
         <Router>
             <div>
-                <h1>hello world</h1>
                 <Header />
                 <Routes>
                     <Route path="/" exact element={<Home />} />
@@ -27,7 +25,6 @@ function App() {
                 <Navbar />
             </div>
         </Router>
-        
     );
 };
 
