@@ -1,9 +1,10 @@
 import React from 'react';
+import BlogList from '../components/BlogList.jsx';
 
 function Discover() {
   return (
     <div>
-      {/* Your component code here */}
+      <BlogList />
     </div>
   );
 }
