@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './styles/CreatePost.css';
 
 const CreatePost = ({ onPostSubmit }) => {
   const [title, setTitle] = useState('');
@@ -15,11 +16,12 @@ const CreatePost = ({ onPostSubmit }) => {
       description,
       author,
       date,
-      tags: tags.split(',').map(tag => tag.trim()), // Convert comma-separated tags to array
+      tags: tags.split(',').map(tag => tag.trim()),
     };
-    
+    console.log(post);
+
     if (onPostSubmit) {
-      onPostSubmit(post); // Callback function for submitting post data
+      onPostSubmit(post);
     }
     
     // Clear form fields
@@ -33,14 +35,15 @@ const CreatePost = ({ onPostSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: '500px', margin: 'auto' }}>
+    <form onSubmit={handleSubmit} className="create-post-form">
       <label>
         Title:
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required/>
+          required
+        />
       </label>
       
       <label>
@@ -48,8 +51,8 @@ const CreatePost = ({ onPostSubmit }) => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required>
-        </textarea>
+          required
+        />
       </label>
       
       <label>

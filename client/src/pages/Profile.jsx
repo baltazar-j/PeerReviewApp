@@ -1,9 +1,10 @@
 import React from 'react';
+import UserInfo from '../components/UserInfo.jsx'
 
 function Profile() {
   return (
     <div>
-      {/* Your component code here */}
+      <UserInfo/>
     </div>
   );
 }

@@ -1,0 +1,50 @@
+:root {
+    --text-color: #e6e6e6; 
+    --background-color: #141414;
+    --dark-grey-accent: #393939;
+}
+
+.create-post-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid var(--dark-grey-accent);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.create-post-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.create-post-form input,
+.create-post-form textarea {
+    width: 95%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--dark-grey-accent);
+    border-radius: 4px;
+    background-color: #222222;
+    color: var(--text-color);
+}
+
+.create-post-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.create-post-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #00008B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
