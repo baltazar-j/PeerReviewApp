@@ -68,17 +68,10 @@
     transition: background-color 0.3s;
 }
 
-/* Button hover effect */
 .profile-container button:hover {
     background-color: var(--button-hover-color);
 }
 
-/* Cancel button styling */
 .profile-container button[type="button"] {
-    background-color: #8B0000; /* Red for cancel */
-}
-
-/* Cancel button hover effect */
-.profile-container button[type="button"]:hover {
-    background-color: #cc0000;
+    background-color: #8B0000;
 }
