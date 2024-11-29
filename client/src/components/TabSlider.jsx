@@ -19,29 +19,16 @@ export default function UnstyledTabsCustomized() {
           </Tab>
         </TabsList>
         <TabPanel className="CustomTabPanel" value={1}>
-          First page
+            First page {/* Component here*/}
         </TabPanel>
         <TabPanel className="CustomTabPanel" value={2}>
-          Second page
+            Second page {/* Component here */}
         </TabPanel>
       </Tabs>
       <Styles />
     </React.Fragment>
   );
 }
-
-const cyan = {
-  50: '#E9F8FC',
-  100: '#BDEBF4',
-  200: '#99D8E5',
-  300: '#66BACC',
-  400: '#1F94AD',
-  500: '#0D5463',
-  600: '#094855',
-  700: '#063C47',
-  800: '#043039',
-  900: '#022127',
-};
 
 function useIsDarkMode() {
   const theme = useTheme();

@@ -9,7 +9,7 @@ const BlogPost = ({ post }) => {
         <div className="post-meta">
           <span className="post-author">By {post.author}  </span>
           <span className="post-date">{post.date}</span><br/>
-          <span className="post-tags">{post.tags}</span>
+          {/* <span className="post-tags">{post.tags}</span> */}
         </div>
       </div>
     </div>
