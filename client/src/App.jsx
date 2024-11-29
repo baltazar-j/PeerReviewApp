@@ -1,4 +1,4 @@
-import React from "react";
+// import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
@@ -6,21 +6,39 @@ import CreatePost from './pages/CreatePost';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute'; 
 
 
 function App() {
-
-
-    return(
-        
+    return (
         <Router>
             <div>
                 <Header />
                 <Routes>
-                    <Route path="/" exact element={<Home />} />
-                    <Route path="/discover" exact element={<Discover />} />
-                    <Route path="/create" exact element={<CreatePost />} />
-                    <Route path="/profile" exact element={<Profile />} />
+                    <Route path="/" element={
+                        <ProtectedRoute> 
+                            <Home />
+                        </ProtectedRoute>
+                        } />
+                    <Route path="/discover" element={<Discover />} />
+                    <Route 
+                        path="/create" 
+                        element={
+                            <ProtectedRoute> 
+                                <CreatePost />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route 
+                        path="/profile" 
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="/login" element={<LoginPage />} />
                 </Routes>
                 <Navbar />
             </div>

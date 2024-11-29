@@ -7,9 +7,8 @@ const BlogPost = ({ post }) => {
         <h2 className="post-title">{post.title}</h2>
         <p className="post-excerpt">{post.description}</p>
         <div className="post-meta">
-          <span className="post-author">By {post.author}  </span>
-          <span className="post-date">{post.date}</span><br/>
-          {/* <span className="post-tags">{post.tags}</span> */}
+          <span className="post-author">By {post?.author?.username}</span> {/* Display username and email */}
+          <span className="post-date">{new Date(post.createdAt).toLocaleDateString()}</span><br/>
         </div>
       </div>
     </div>

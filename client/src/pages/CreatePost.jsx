@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './styles/CreatePost.css';
 
 const CreatePost = ({ onPostSubmit }) => {
@@ -6,32 +7,52 @@ const CreatePost = ({ onPostSubmit }) => {
   const [description, setDescription] = useState('');
   const [author, setAuthor] = useState('');
   const [date, setDate] = useState('');
-  const [tags, setTags] = useState('');
+  // const [tags, setTags] = useState('');
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // Get user from localStorage
+    const savedUser = localStorage.getItem('saved_current_user');
+    if (savedUser) {
+      const user = JSON.parse(savedUser);
+      setAuthor(user.username);
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    if (!author) {
+      console.error('Author is required!');
+      return;
+    }
+
     const post = {
       title,
       description,
       author,
-      date,
-      tags: tags.split(',').map(tag => tag.trim()),
+      date: date || new Date(),
+      // tags: tags.split(',').map(tag => tag.trim()),
     };
-    console.log(post);
 
-    if (onPostSubmit) {
-      onPostSubmit(post);
+    console.log('Post Data:', post);
+
+    try {
+      // Send the post data to the backend
+      await axios.post('http://localhost:5050/api/posts', post);
+      console.log('Post created successfully');
+
+      setTitle('');
+      setDescription('');
+      setDate('');
+      // setTags('');
+
+      if (onPostSubmit) {
+        onPostSubmit(post);
+      }
+
+    } catch (error) {
+      console.error('Error creating post:', error);
     }
-    
-    // Clear form fields
-    setTitle('');
-    setDescription('');
-    setAuthor('');
-    setDate('');
-    setTags('');
-
-    //Eventually add a "Post created *thumbs up* animation"
   };
 
   return (
@@ -45,7 +66,7 @@ const CreatePost = ({ onPostSubmit }) => {
           required
         />
       </label>
-      
+
       <label>
         Description:
         <textarea
@@ -54,17 +75,7 @@ const CreatePost = ({ onPostSubmit }) => {
           required
         />
       </label>
-      
-      <label>
-        Author:
-        <input
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          required
-        />
-      </label>
-      
+
       <label>
         Date:
         <input
@@ -74,8 +85,8 @@ const CreatePost = ({ onPostSubmit }) => {
           required
         />
       </label>
-      
-      <label>
+
+      {/* <label>
         Tags:
         <input
           type="text"
@@ -83,8 +94,8 @@ const CreatePost = ({ onPostSubmit }) => {
           onChange={(e) => setTags(e.target.value)}
           placeholder="e.g. react, development, c++"
         />
-      </label>
-      
+      </label> */}
+
       <button type="submit">Create Post</button>
     </form>
   );

@@ -1,77 +1,115 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 import '../pages/styles/UserInfo.css';
-const Profile = () => {
-    const user = { //temp
-        username: 'Mark Rober',
-        bio: 'I make random science expiraments to be able to show the younger audience how interesting science can be',
-    };
+import LogoutButton from './LogoutButton.jsx';
 
+const Profile = () => {
+    const { isAuthenticated } = useAuth0();
+    const [profileData, setProfileData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [username, setUsername] = useState(user.username);
-    const [bio, setBio] = useState(user.bio);
-    const [initialBio, setInitialBio] = useState(user.bio);
+    const [username, setUsername] = useState('');
+    const [bio, setBio] = useState('');
     const MAX_BIO_LENGTH = 150;
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Updated profile:', { username, bio });// make call here, but later
-    setIsEditing(false);
+    // Load user info from localStorage after login
+    useEffect(() => {
+        if (isAuthenticated) {
+            const savedUserData = JSON.parse(localStorage.getItem("saved_current_user"));
+            if (savedUserData) {
+                setUsername(savedUserData.username);
+                setBio(savedUserData.bio || '');
+                setProfileData(savedUserData);
+            }
+        }
+    }, [isAuthenticated]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('Updated profile:', { username, bio });
+   
+        try {
+            const response = await axios.put('http://localhost:5050/api/users', {
+                email: profileData.email,
+                bio,
+            });
+            console.log('User info updated in DB:', response.data);
+   
+            const updatedUserData = response.data.user;
+            localStorage.setItem("saved_current_user", JSON.stringify(updatedUserData));
+   
+            setProfileData(updatedUserData);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating user info:', error);
+        }
     };
+   
 
     const handleBioChange = (e) => {
-    const editBio = e.target.value;
-    if (editBio.length <= MAX_BIO_LENGTH) {
-        setBio(editBio);
-    }
+        const editBio = e.target.value;
+        if (editBio.length <= MAX_BIO_LENGTH) {
+            setBio(editBio);
+        }
     };
+
     const handleCancel = () => {
-        // Revert the bio back to its initial value when canceling
-        setBio(initialBio);
+        setBio(profileData?.bio);
         setIsEditing(false);
     };
 
+    if (!isAuthenticated) {
+        return <div>Please log in to view your profile</div>;
+    }
+
     return (
-    <div className="profile-container">
-        {!isEditing ? (
-        <div>
-            <h2>{username}</h2>
-            <p><strong>Bio:</strong> {bio}</p>
-            <button onClick={() => setIsEditing(true)}>Edit Details</button>
+        <div className="profile-container">
+            {profileData ? (
+                !isEditing ? (
+                    <div>
+                        <h2>{username}</h2>
+                        <p>Bio: {bio}</p>
+                        <button onClick={() => setIsEditing(true)}>Edit Details</button>
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>
+                                Username:
+                                <input 
+                                    type="text" 
+                                    value={username} 
+                                    onChange={(e) => setUsername(e.target.value)} 
+                                    required
+                                    disabled
+                                />
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <label>
+                                Bio:
+                                <textarea 
+                                    value={bio} 
+                                    onChange={handleBioChange} 
+                                    required
+                                    maxLength={MAX_BIO_LENGTH}
+                                />
+                                <p>{bio.length}/{MAX_BIO_LENGTH} characters</p>
+                            </label>
+                        </div>
+                        
+                        <button type="submit">Save Changes</button>
+                        <button type="button" onClick={handleCancel}>
+                            Cancel
+                        </button>
+                    </form>
+                )
+            ) : (
+                <div>Loading user information...</div>
+            )}
+            <LogoutButton />
         </div>
-        ) : (
-        <form onSubmit={handleSubmit}>
-            <div>
-            <label>
-                Username:
-                <input 
-                type="text" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-                required
-                />
-            </label>
-            </div>
-            
-            <div>
-            <label>
-                Bio:
-                <textarea 
-                value={bio} 
-                onChange={handleBioChange} 
-                required
-                maxLength={MAX_BIO_LENGTH}
-                />
-                <p>{bio.length}/{MAX_BIO_LENGTH} characters</p> {/* Character count */}
-            </label>
-            </div>
-            
-            <button type="submit">Save Changes</button>
-            <button type="button" onClick={() => handleCancel(false)}>
-            Cancel
-            </button>
-        </form>
-        )}
-    </div>
     );
 };
 

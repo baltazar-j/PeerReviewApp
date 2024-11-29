@@ -5,6 +5,7 @@ import { TabsList } from '@mui/base/TabsList';
 import { TabPanel } from '@mui/base/TabPanel';
 import { buttonClasses } from '@mui/base/Button';
 import { Tab, tabClasses } from '@mui/base/Tab';
+import MyPosts from './MyPosts.jsx';
 
 export default function UnstyledTabsCustomized() {
   return (
@@ -19,7 +20,7 @@ export default function UnstyledTabsCustomized() {
           </Tab>
         </TabsList>
         <TabPanel className="CustomTabPanel" value={1}>
-            First page {/* Component here*/}
+            <MyPosts />
         </TabPanel>
         <TabPanel className="CustomTabPanel" value={2}>
             Second page {/* Component here */}
