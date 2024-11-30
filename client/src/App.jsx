@@ -16,6 +16,7 @@ function App() {
             <div>
                 <Header />
                 <Routes>
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/" element={
                         <ProtectedRoute> 
                             <Home />
