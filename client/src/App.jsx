@@ -38,7 +38,6 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="/login" element={<LoginPage />} />
                 </Routes>
                 <Navbar />
             </div>
