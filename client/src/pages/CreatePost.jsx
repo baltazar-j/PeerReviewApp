@@ -38,7 +38,7 @@ const CreatePost = ({ onPostSubmit }) => {
 
     try {
       // Send the post data to the backend
-      await axios.post('http://localhost:5050/api/posts', post);
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/posts`, post);
       console.log('Post created successfully');
 
       setTitle('');

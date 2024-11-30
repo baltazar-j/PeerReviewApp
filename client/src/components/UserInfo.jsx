@@ -29,7 +29,7 @@ const Profile = () => {
         console.log('Updated profile:', { username, bio });
    
         try {
-            const response = await axios.put('http://localhost:5050/api/users', {
+            const response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/users`, {
                 email: profileData.email,
                 bio,
             });

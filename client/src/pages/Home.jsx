@@ -10,7 +10,7 @@ function Home() {
         if (isLoading) return;
         if (isAuthenticated && user) {
             // console.log('User Data:', user);
-            axios.post('http://localhost:5050/api/users', {
+            axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/users`, {
                 username: user.name,
                 email: user.email,
                 auth0Id: user.sub,

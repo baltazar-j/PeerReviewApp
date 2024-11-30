@@ -19,7 +19,7 @@ const MyPosts = () => {
         const username = savedUser.username;
         console.log('Username:', username);
         // Query the backend to find the user by username using axios
-        const userResponse = await axios.get(`http://localhost:5050/api/users/username/${username}`);
+        const userResponse = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/users/username/${username}`);
         const userData = userResponse.data;
 
         if (userData && userData._id) {
@@ -42,7 +42,7 @@ const MyPosts = () => {
 
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`http://localhost:5050/api/posts/author/${userId}/posts`);
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/posts/author/${userId}/posts`);
         const data = response.data;
 
         // Sort posts by creation date (newest first)
