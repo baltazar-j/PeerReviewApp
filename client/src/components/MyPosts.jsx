@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import BlogPost from './BlogPost';
 
 const MyPosts = () => {
@@ -16,10 +17,10 @@ const MyPosts = () => {
         }
 
         const username = savedUser.username;
-
-        // Query to find the user by username
-        const userResponse = await fetch(`http://localhost:5050/api/users/username/${username}`);
-        const userData = await userResponse.json();
+        console.log('Username:', username);
+        // Query the backend to find the user by username using axios
+        const userResponse = await axios.get(`http://localhost:5050/api/users/username/${username}`);
+        const userData = userResponse.data;
 
         if (userData && userData._id) {
           setUserId(userData._id);
@@ -34,14 +35,17 @@ const MyPosts = () => {
     fetchUserId();
   }, []);
 
+  // Fetch posts once the userId is set
   useEffect(() => {
     if (!userId) return;
+    console.log('User ID:', userId);
 
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`http://localhost:5050/api/posts/author/${userId}/posts`);
-        const data = await response.json();
+        const response = await axios.get(`http://localhost:5050/api/posts/author/${userId}/posts`);
+        const data = response.data;
 
+        // Sort posts by creation date (newest first)
         const sortedPosts = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPosts(sortedPosts);
       } catch (error) {
@@ -50,7 +54,7 @@ const MyPosts = () => {
     };
 
     fetchPosts();
-  }, [userId]);
+  }, [userId]); 
 
   return (
     <div className="blog-list">

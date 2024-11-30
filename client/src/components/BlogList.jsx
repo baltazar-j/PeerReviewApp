@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import BlogPost from './BlogPost';
 
 const BlogList = () => {
   const [posts, setPosts] = useState([]);
   
-  
   useEffect(() => {
-    
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5050/api/posts');
-        const data = await response.json();
-        const sortedPosts = data
+        const response = await axios.get('http://localhost:5050/api/posts');
+        const sortedPosts = response.data
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .slice(0, 30);
         setPosts(sortedPosts);
@@ -35,4 +33,3 @@ const BlogList = () => {
 };
 
 export default BlogList;
-
